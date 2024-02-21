@@ -1,0 +1,42 @@
+server:
+  port: 9191
+
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: USER-SERVICE
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/v1/users/**
+        - id: CASHKICK-SERVICE
+          uri: lb://CASHKICK-SERVICE
+          predicates:
+            - Path=/api/v1/cashkicks/**
+          filters:
+            - AuthenticationFilter
+        - id: CONTRACT-SERVICE
+          uri: lb://CONTRACT-SERVICE
+          predicates:
+            - Path=/api/v1/contracts/**
+          filters:
+            - AuthenticationFilter
+        - id: PAYMENT-SERVICE
+          uri: lb://PAYMENT-SERVICE
+          predicates:
+            - Path=/api/v1/payments/**
+          filters:
+            - AuthenticationFilter
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    instance:
+      hostname: localhost
+
+SECRET_ID: ${SECRET}

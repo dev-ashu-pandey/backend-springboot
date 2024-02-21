@@ -1,0 +1,30 @@
+
+server:
+  port: 9000
+
+spring:
+  application:
+    name: USER-SERVICE
+  datasource:
+    url: ${DATASOURCE_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: false
+    hostname: localhost
+
+SECRET_ID: ${SECRET}
+INITIAL_CASHKICK_BALANCES: ${INITIAL_CASHKICK}
